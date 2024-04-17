@@ -6,9 +6,9 @@ import { colorPalettes } from '../constants/colors';
 const { colorSet1: { softWhite, darkViolet, charcoal, darkOrange } } = colorPalettes;
 
 
-const SearchBar = () => {
+const SearchBar = ({ bgColor, shadow }) => {
     return (
-        <View style={styles.searchBar}>
+        <View style={{ ...styles.searchBar, backgroundColor: bgColor }}>
             <View
                 style={{
                     flexDirection: 'row',
@@ -26,7 +26,7 @@ const SearchBar = () => {
                     width: '100%',
                     backgroundColor: softWhite,
                     borderRadius: 10,
-                    padding: 8
+                    padding: 8, elevation: shadow
                 }}>
                     <FontAwesome5 name="search" size={24} color="black" />
                     <TextInput style={styles.input} />
@@ -39,7 +39,6 @@ const SearchBar = () => {
 
 const styles = StyleSheet.create({
     searchBar: {
-        backgroundColor: charcoal,
         padding: 10,
     },
     input: {

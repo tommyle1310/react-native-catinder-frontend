@@ -9,6 +9,7 @@ import { Text, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { linklbl } from '../constants/css';
 
 const { colorSet1: { softWhite, darkViolet, charcoal, darkOrange, lightDark } } = colorPalettes;
 
@@ -49,7 +50,7 @@ const AuthForm = ({ btnTitle, onSubmit, title, titleDesc, switchPage, errorMessa
                             </View>
                         </View>
                     </View>
-                    <View style={styles.switchPage}><Text>{switchPage.text}</Text><TouchableOpacity onPress={() => { switchPage.link(); setEmail(''); setPassword('') }}><Text style={styles.linklbl}>{switchPage.linkLbl}</Text></TouchableOpacity></View>
+                    <View style={styles.switchPage}><Text>{switchPage.text}</Text><TouchableOpacity onPress={() => { switchPage.link(); setEmail(''); setPassword('') }}><Text style={linklbl}>{switchPage.linkLbl}</Text></TouchableOpacity></View>
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -76,10 +77,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 8
     },
-    linklbl: {
-        color: 'blue',
-        fontWeight: '700'
-    },
+
     button: {
         backgroundColor: darkViolet,
         color: charcoal,

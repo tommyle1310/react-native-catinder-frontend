@@ -1,3 +1,4 @@
+import { navigate } from '../navigationRef'
 export const blogs = {
     homeBlogs: [
         {
@@ -206,7 +207,6 @@ export const listChats = [
         image: ''
     }
 ]
-
 
 export const chat = [
     {
@@ -451,5 +451,149 @@ export const chat = [
         message: 'Same here, lots to do but making progress.',
         isRead: true,
         relativeTimestamp: '1m'
+    }
+]
+
+export const catHomeBtns = [
+    {
+        title: 'My fav cats',
+        onTap: () => {
+            navigate('CatFavorite')
+        }
+    },
+    {
+        title: `Add cat's profile`,
+        onTap: () => {
+            navigate('CatCreate')
+        }
+    },
+    {
+        title: 'Find matches',
+        onTap: () => {
+            navigate('Home')
+        }
+    },
+    {
+        title: 'Chat with matches',
+        onTap: () => {
+            navigate('ChatList')
+        }
+    },
+    {
+        title: 'Cat care tips',
+        onTap: () => {
+            // Handle navigation to the "Cat Care Tips" screen
+        }
+    },
+    {
+        title: 'Cat events',
+        onTap: () => {
+            // Handle navigation to the "Cat Events" screen
+        }
+    }
+];
+
+
+export const catHomeCategory = [
+    {
+        title: 'Breeds',
+        onTap: () => { }
+    },
+    {
+        title: 'Adoption',
+        onTap: () => { }
+    },
+    {
+        title: 'Health',
+        onTap: () => { }
+    },
+    {
+        title: 'Entertainment',
+        onTap: () => { }
+    },
+    {
+        title: 'Events',
+        onTap: () => { }
+    },
+    {
+        title: 'Products',
+        onTap: () => { }
+    },
+    {
+        title: 'News',
+        onTap: () => { }
+    },
+    {
+        title: 'Art & Crafts',
+        onTap: () => {
+
+        }
+    },
+    {
+        title: 'Community',
+        onTap: () => { }
+    },
+    {
+        title: 'Memes',
+        onTap: () => { }
+    }
+];
+
+export const reviews = [
+    {
+        id: 1,
+        author: 'Tommy Tep',
+        relativeTimestamp: '26m ago',
+        catName: 'Oggay',
+        star: 2.2,
+        comment: 'Wow this cat is awesome cute garbage',
+        tag: 'Energetic',
+        location: 'Vungtau',
+        likes: 68,
+        dislike: 0,
+        comments: 8,
+        shares: 3
+    },
+    {
+        id: 2,
+        author: 'Mia C.',
+        relativeTimestamp: '1h ago',
+        catName: 'Whiskers',
+        star: 4.5,
+        comment: 'Whiskers is the epitome of elegance! Graceful, affectionate, and always ready for a cuddle.',
+        tag: 'Affectionate',
+        location: 'New York City',
+        likes: 102,
+        dislike: 2,
+        comments: 12,
+        shares: 5
+    },
+    {
+        id: 3,
+        author: 'Simon Purr',
+        relativeTimestamp: '2d ago',
+        catName: 'Mittens',
+        star: 3.8,
+        comment: 'Mittens is a little mischief-maker! Always finding new ways to entertain and amaze us.',
+        tag: 'Playful',
+        location: 'London',
+        likes: 45,
+        dislike: 1,
+        comments: 6,
+        shares: 2
+    },
+    {
+        id: 4,
+        author: 'Lily Meow',
+        relativeTimestamp: '3d ago',
+        catName: 'Socks',
+        star: 4.0,
+        comment: 'Socks is a loyal companion, always by my side. Those big eyes melt my heart every time.',
+        tag: 'Loyal',
+        location: 'Los Angeles',
+        likes: 78,
+        dislike: 0,
+        comments: 10,
+        shares: 4
     }
 ]

@@ -9,16 +9,16 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as AuthProvider } from './src/context/authContext';
 import SettingScreen from './src/screens/SettingScreen';
 import UserInfoScreen from './src/screens/UserInfoScreen';
-import { Ionicons, Fontisto } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DefaultScreen from './src/screens/DefaultScreen';
-import { colorPalettes } from './src/constants/colors';
-import CatCreateScreen from './src/screens/CatCreateScreen';
+import CatCreateScreen from './src/screens/Cat/CatCreateScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
-import CatDetailsScreen from './src/screens/CatDetailsScreen';
+import CatDetailsScreen from './src/screens/Cat/CatDetailsScreen';
 import ChatScreen from './src/screens/Chat/ChatScreen';
 import ChatListScreen from './src/screens/Chat/ChatListScreen';
-
-const { colorSet1: { lightViolet, lightOrange } } = colorPalettes
+import CatHomeScreen from './src/screens/Cat/CatHomeScreen';
+import CatFavoriteScreen from './src/screens/Cat/CatFavoriteScreen';
+import RatingScreen from './src/screens/Cat/RatingScreen';
 
 
 const SettingsFlow = createStackNavigator({
@@ -44,6 +44,18 @@ ChatFlow.navigationOptions = {
   tabBarIcon: <Ionicons name="chatbubble" size={20} color="black" />
 }
 
+const CatFlow = createStackNavigator({
+  CatHome: CatHomeScreen,
+  CatCreate: CatCreateScreen,
+  CatDetails: CatDetailsScreen,
+  CatFavorite: CatFavoriteScreen,
+  CatRating: RatingScreen,
+}, {
+  initialRouteName: 'CatHome',
+})
+CatFlow.navigationOptions = {
+  tabBarIcon: <MaterialCommunityIcons name="cat" size={24} color="black" />
+}
 
 const switchNavigator = createSwitchNavigator({
   Default: DefaultScreen,
@@ -51,12 +63,11 @@ const switchNavigator = createSwitchNavigator({
     Signin: SigninScreen,
     Signup: SignupScreen
   }),
-  CatCreate: CatCreateScreen,
-  CatDetails: CatDetailsScreen,
   mainFlow: createMaterialBottomTabNavigator({
     Home: HomeScreen,
     Notifications: NotificationsScreen,
-    Chat: ChatFlow,
+    catFlow: CatFlow,
+    ChatFlow: ChatFlow,
     Settings: SettingsFlow,
   }, {
     initialRouteName: 'Home',

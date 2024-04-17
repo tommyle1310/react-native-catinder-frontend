@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, KeyboardAvoidingView, ScrollView, Platform, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { colorPalettes } from '../constants/colors';
-import { FontAwesome } from '@expo/vector-icons';
 import { cats } from '../constants/sampleData';
 import { navigate } from '../navigationRef';
 import { AntDesign } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import useDisplayStars from '../hooks/useDisplayStars';
 
 
 
@@ -13,61 +13,6 @@ const { colorSet1: { softWhite, softGray, darkViolet, softViolet, lightViolet, l
 
 
 const ListCats = () => {
-    const displayStars = (number) => {
-        switch (true) {
-            case number < 1:
-                return <><FontAwesome name="star-half-full" size={14} color={lightViolet} />;
-                    <FontAwesome name="star-o" size={14} color={lightViolet} />
-                    <FontAwesome name="star-o" size={14} color={lightViolet} />
-                    <FontAwesome name="star-o" size={14} color={lightViolet} />
-                    <FontAwesome name="star-o" size={14} color={lightViolet} />
-                </>
-            case number < 2:
-                return (
-                    <>
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star-half-full" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-
-                    </>
-                );
-            case number < 3:
-                return (
-                    <>
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star-half-full" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-
-                    </>
-                );
-            case number < 4:
-                return (
-                    <>
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star-half-full" size={14} color={lightViolet} />
-                        <FontAwesome name="star-o" size={14} color={lightViolet} />
-                    </>
-                );
-            case number < 5:
-                return (
-                    <>
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star" size={14} color={lightViolet} />
-                        <FontAwesome name="star-half-full" size={14} color={lightViolet} />
-                    </>
-                );
-            default:
-                return <FontAwesome name="star-o" size={14} color={lightViolet} />;
-        }
-    };
 
     const [favCats, setFavCats] = useState([])
     const handleClickFavorite = (selectedFavCat) => {
@@ -100,7 +45,7 @@ const ListCats = () => {
                         <Text style={{ fontWeight: 700 }}>{cat.name}</Text>
                         <Text style={{ fontSize: 12 }}>Gender: {cat.gender}</Text>
                         <Text style={{ fontSize: 10, color: lightDark }}>{cat.description}</Text>
-                        <View style={{ justifyContent: 'flex-end', flex: 1 }}><Text style={{ alignSelf: 'flex-end' }}>{displayStars(cat.star)}</Text></View>
+                        <View style={{ justifyContent: 'flex-end', flex: 1 }}><Text style={{ alignSelf: 'flex-end' }}>{useDisplayStars({ number: cat.star, color: lightViolet, size: 14 })}</Text></View>
                     </View>
                 </TouchableOpacity>
             ))}

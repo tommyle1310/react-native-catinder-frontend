@@ -3,41 +3,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { colorPalettes } from '../constants/colors';
 import { MaterialIcons } from '@expo/vector-icons';
-import Spacer from '../components/Spacer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SettingUserInfoTab from '../components/Setting/SettingUserInfoTab';
 import SettingUserCatInfoTab from '../components/Setting/SettingUserCatInfoTab';
-import { Context as AuthContext } from '../context/authContext';
 import SwitchTab from '../components/SwitchTab';
+import useRetrieveUserInfo from '../hooks/useRetrieveUserInfo';
 
 const { colorSet1: { softWhite, darkViolet, lightOrange, darkOrange, charcoal, lightDark } } = colorPalettes;
 
 
 const UserInfoScreen = ({ navigation }) => {
-    const { state, getUserInfo } = useContext(AuthContext)
-
-
     const [isShowMyInfo, setIsShowMyInfo] = useState(true)
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
     useEffect(() => {
-        console.log(navigation.getParam('tabType'))
         if (navigation.getParam('tabType') === 'SettingUserInfoTab') {
             setIsShowMyInfo(true)
         } else {
             setIsShowMyInfo(false)
         }
     }, [])
-    useEffect(() => {
-        const getInfo = async () => {
-            const { email, username } = await getUserInfo()
-            setEmail(email)
-            setUsername(username)
-        };
-        getInfo();
-    }, []);
-
+    const [username, email] = useRetrieveUserInfo()
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>

@@ -9,6 +9,7 @@ import SettingItem from '../components/Setting/SettingItem';
 import Spacer from '../components/Spacer';
 import { navigate } from '../navigationRef';
 import { customSafeAreaView } from '../constants/css';
+import useRetrieveUserInfo from '../hooks/useRetrieveUserInfo';
 
 
 const { colorSet1: { softWhite, darkViolet, lightOrange, darkOrange, charcoal, lightDark } } = colorPalettes;
@@ -30,22 +31,9 @@ const settingData = {
 }
 
 const SettingScreen = () => {
-    const { getUserInfo } = useContext(AuthContext)
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    useEffect(() => {
-        const getInfo = async () => {
-            const getInfo = async () => {
-                const { email, username } = await getUserInfo()
-                setEmail(email)
-                setUsername(username)
-            };
-            getInfo();
-        };
-
-        getInfo();
-    }, []);
+    const [username, email] = useRetrieveUserInfo()
     const { signout } = useContext(AuthContext)
+
     return (
         <View style={{ flex: 1, position: 'relative' }}>
             <LinearGradient

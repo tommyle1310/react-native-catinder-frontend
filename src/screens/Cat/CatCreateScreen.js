@@ -1,18 +1,19 @@
 import { View, Text, Platform, KeyboardAvoidingView, StyleSheet, ScrollView, TextInput, FlatList, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { colorPalettes } from '../constants/colors';
-import { defaultInput } from '../constants/css';
-import Spacer from '../components/Spacer';
+import { colorPalettes } from '../../constants/colors';
+import { defaultInput } from '../../constants/css';
+import Spacer from '../../components/Spacer';
 import { Ionicons } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
 
 const { colorSet1: { softWhite, darkViolet, charcoal, darkOrange, lightDark, lightViolet } } = colorPalettes;
 const defaultSampleImages = [
     { species: 'jack' },
-    // { species: 'tom' },
-    // { species: 'oggy' },
-    // { species: 'doraemon' },
-    // { species: 'muop' }
+    { species: 'tom' },
+    { species: 'oggy' },
+    { species: 'doraemon' },
+    { species: 'muop' }
 ]
 
 
@@ -21,7 +22,7 @@ const CatCreateScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Home')}><Ionicons name="chevron-back" size={24} color="black" /><Text>Home</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={24} color="black" /><Text>Home</Text></TouchableOpacity>
                     <Text style={{ alignSelf: 'center', fontSize: 30, fontWeight: 600, color: lightViolet }}>Add my cat 😺</Text>
                     <Spacer />
                     <View style={{}}>
@@ -105,8 +106,6 @@ const CatCreateScreen = ({ navigation }) => {
                             <Text style={{ color: softWhite }}>Add</Text>
                         </TouchableOpacity>
                     </Spacer>
-
-
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -148,4 +147,8 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CatCreateScreen
+CatCreateScreen.navigationOptions = {
+    headerShown: false
+}
+
+export default withNavigation(CatCreateScreen)

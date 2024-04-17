@@ -19,6 +19,9 @@ export const customSafeAreaView = {
     gap: 5, justifyContent: 'start'
 }
 
+export const linklbl = { color: 'blue', fontWeight: '700' }
+export const justifyCenter = { justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }
+export const roundedFull = { width: 50, height: 50, borderRadius: 9999 }
 export const imageCircle = { width: 50, height: 50, borderRadius: 9999, backgroundColor: charcoal }
 
 export const titleScreen = { fontSize: 24, fontWeight: 700 }
@@ -31,3 +34,5 @@ export const h4Light = { fontSize: 18, fontWeight: 600 }
 export const h5Bold = { fontSize: 16, fontWeight: 700 }
 export const h5Light = { fontSize: 16, fontWeight: 600 }
 export const smallTextGray = { fontSize: 12, fontWeight: 500, color: softGray }
+export const smallText = { fontSize: 12, fontWeight: 500 }
+

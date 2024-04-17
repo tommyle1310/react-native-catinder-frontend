@@ -32,7 +32,7 @@ const Blogs = () => {
                         <Text style={{ fontSize: 15, fontWeight: 700, color: darkViolet }}>{item.title}</Text>
                         <Text style={{ fontSize: 12 }}>
                             {showMoreIndex === index ? item.description : limitWords(item.description)}
-                            <TouchableOpacity style={{ backgroundColor: 'red' }} onPress={() => toggleShowMore(index)}>
+                            <TouchableOpacity style={{}} onPress={() => toggleShowMore(index)}>
                                 <Text style={{ fontSize: 12 }}>{showMoreIndex === index ? 'Show less' : 'Show more'}</Text>
                             </TouchableOpacity>
                         </Text>
