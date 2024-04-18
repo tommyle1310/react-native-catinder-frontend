@@ -1,14 +1,18 @@
-import { View, Text, KeyboardAvoidingView, Platform, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, KeyboardAvoidingView, Platform, FlatList, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { withNavigation } from 'react-navigation'
 import { MaterialIcons, Feather, AntDesign, FontAwesome } from '@expo/vector-icons';
-import { h2Bold, h3Bold, h5Bold, h5Light, imageCircle, justifyCenter, smallText, smallTextGray } from '../../constants/css'
+import { defaultInput, h2Bold, h3Bold, h5Bold, h5Light, imageCircle, justifyCenter, smallText, smallTextGray } from '../../constants/css'
 import { colorPalettes } from '../../constants/colors'
 import useDisplayStars from '../../hooks/useDisplayStars';
 import { cats, reviews } from '../../constants/sampleData';
 
 const { colorSet1: { charcoal, darkViolet, softWhite, lightOrange, darkOrange, lightDark } } = colorPalettes
 const RatingScreen = ({ navigation }) => {
+    const [isShowMyRating, setIsShowMyRating] = useState(false)
+    const handleSubmit = () => {
+        setIsShowMyRating(true)
+    }
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
             <View style={{ flex: 1, backgroundColor: darkViolet, paddingTop: 50 }}>
@@ -20,7 +24,17 @@ const RatingScreen = ({ navigation }) => {
                     <MaterialIcons name="menu-open" size={24} color={softWhite} />
                 </View>
                 <ScrollView style={{ padding: 15 }}>
-                    <TouchableOpacity style={{ padding: 10, backgroundColor: darkOrange, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}><Text style={{ ...h5Bold, color: softWhite, }}>Review now</Text></TouchableOpacity>
+
+                    {/* button review */}
+                    {isShowMyRating ?
+                        <TouchableOpacity onPress={() => setIsShowMyRating(false)} style={{ padding: 10, backgroundColor: darkOrange, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}><Text style={{ ...h5Bold, color: softWhite, }}>Review now</Text></TouchableOpacity>
+                        :
+                        <View style={{ borderRadius: 10, gap: 15, marginVertical: 20, alignSelf: 'center', backgroundColor: softWhite, width: 330, padding: 10 }}>
+                            <View style={{ flexDirection: 'row', alignSelf: 'center' }}>{useDisplayStars({ number: 4.9, color: lightDark, size: 20 })}</View>
+                            <TextInput placeholder='Enter your comment' style={{ ...defaultInput, width: '100%', backgroundColor: softWhite, borderWidth: 1, borderColor: charcoal }} />
+                            <TouchableOpacity onPress={handleSubmit} style={{ backgroundColor: lightOrange, padding: 10, borderRadius: 8, }}><Text style={{ ...h5Bold, color: softWhite, alignSelf: 'center' }}>Submit</Text></TouchableOpacity>
+                        </View>
+                    }
                     {reviews.length > 0 && reviews.map(item => (
                         <View key={item.id} style={{ borderRadius: 10, marginVertical: 20, alignSelf: 'center', backgroundColor: softWhite, width: 330, padding: 10 }}>
                             <View style={{ ...justifyCenter, gap: 10, borderBottomWidth: 1, borderColor: charcoal, paddingBottom: 10 }}>
