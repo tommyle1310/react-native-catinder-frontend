@@ -52,6 +52,7 @@ const signin = dispatch => async ({ email, password }) => {
             await AsyncStorage.setItem('token', response.data.token);
             await AsyncStorage.setItem('email', response.data.email);
             await AsyncStorage.setItem('username', response.data.username)
+            await AsyncStorage.setItem('userId', response.data.userId)
         }
         dispatch({ type: 'SIGN_IN', payload: { email, password } });
         navigate('Home');

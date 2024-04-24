@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, KeyboardAvoidingView, ScrollView, Platform, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { colorPalettes } from '../constants/colors';
-import { cats } from '../constants/sampleData';
 import { navigate } from '../navigationRef';
 import { AntDesign } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import useDisplayStars from '../hooks/useDisplayStars';
+import { Context as CatContext } from '../context/catContext'
+import { Context as UserContext } from '../context/userContext'
+import { NavigationEvents } from 'react-navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ListItemButtonGroup } from '@rneui/base/dist/ListItem/ListItem.ButtonGroup';
 
 
 
@@ -13,37 +16,63 @@ const { colorSet1: { softWhite, softGray, darkViolet, softViolet, lightViolet, l
 
 
 const ListCats = () => {
-
+    const { state: catState, getListCats } = useContext(CatContext)
+    const { getFavoriteCats, state: userState, modifyListFavoriteCats } = useContext(UserContext)
     const [favCats, setFavCats] = useState([])
-    const handleClickFavorite = (selectedFavCat) => {
-        let favCatsCopy = [...favCats];
-
-        if (!favCatsCopy.includes(selectedFavCat)) {
-            favCatsCopy.push(selectedFavCat);
-        } else {
-            favCatsCopy = favCatsCopy.filter(cat => cat !== selectedFavCat);
-        }
-
-        setFavCats(favCatsCopy);
+    const [listCats, setListCats] = useState([])
+    const handleClickFavorite = async (selectedFavCat) => {
+        const id = await AsyncStorage.getItem('userId')
+        await modifyListFavoriteCats({ userId: id, catId: selectedFavCat._id })
+        setFavCats(userState.listFavoriteCats)
     }
+    useEffect(() => {
+        getAllCats();
+        if (catState.listCats.length > 0) {
+            setListCats(catState.listCats);
+        }
+        getListFavoriteCats();
+    }, [favCats]); // Include favCats as a dependency
+
+    const getAllCats = async () => {
+        await getListCats()
+    }
+    const getListFavoriteCats = async () => {
+        const id = await AsyncStorage.getItem('userId')
+        await getFavoriteCats(id)
+        setFavCats(userState.listFavoriteCats)
+
+    }
+    useEffect(() => {
+
+        getAllCats()
+        if (catState.listCats.length > 0) {
+            setListCats(catState.listCats)
+        }
+        getListFavoriteCats()
+    }, [])
+
+
 
     return (
         <View
             style={styles.container}
         >
-            {cats.homeListCats.map((cat) => (
-                <TouchableOpacity onPress={() => navigate('CatDetails')} key={cat.id} style={styles.cardContainer}>
+            {listCats.map((cat) => (
+                <TouchableOpacity onPress={() => navigate('CatDetails', { catDetail: cat })} key={cat._id} style={styles.cardContainer}>
+                    <NavigationEvents onDidFocus={() => { }} />
                     <View style={styles.card}>
                         <View style={{ position: 'relative' }}>
                             <TouchableOpacity
                                 onPress={() => handleClickFavorite(cat)}
                                 style={styles.favoriteIconContainer}>
-                                {favCats.some(item => item === cat) ? <AntDesign name="heart" size={14} color={'red'} /> : <AntDesign name="heart" size={14} color={softGray} />}
+                                {favCats?.some(item => item._id === cat._id) ?
+                                    <AntDesign name="heart" size={14} color={'red'} /> :
+                                    <AntDesign name="heart" size={14} color={softGray} />}
                             </TouchableOpacity>
                             <Image source={cat.image} style={styles.image} />
                         </View>
                         <Text style={{ fontWeight: 700 }}>{cat.name}</Text>
-                        <Text style={{ fontSize: 12 }}>Gender: {cat.gender}</Text>
+                        <Text style={{ fontSize: 12 }}>Gender: {cat.gender === true ? 'Male' : 'Female'}</Text>
                         <Text style={{ fontSize: 10, color: lightDark }}>{cat.description}</Text>
                         <View style={{ justifyContent: 'flex-end', flex: 1 }}><Text style={{ alignSelf: 'flex-end' }}>{useDisplayStars({ number: cat.star, color: lightViolet, size: 14 })}</Text></View>
                     </View>

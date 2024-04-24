@@ -7,6 +7,8 @@ import HomeScreen from './src/screens/HomeScreen'
 import { setNavigator } from './src/navigationRef';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as AuthProvider } from './src/context/authContext';
+import { Provider as UserProvider } from './src/context/userContext';
+import { Provider as CatProvider } from './src/context/catContext';
 import SettingScreen from './src/screens/SettingScreen';
 import UserInfoScreen from './src/screens/UserInfoScreen';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -85,9 +87,13 @@ const App = createAppContainer(switchNavigator)
 export default () => {
   return (
     <AuthProvider>
-      <SafeAreaProvider>
-        <App ref={(nav) => setNavigator(nav)} />
-      </SafeAreaProvider>
+      <UserProvider>
+        <CatProvider>
+          <SafeAreaProvider>
+            <App ref={(nav) => setNavigator(nav)} />
+          </SafeAreaProvider>
+        </CatProvider>
+      </UserProvider>
     </AuthProvider>
   )
 }

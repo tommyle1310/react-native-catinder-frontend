@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 const useDisplayStars = ({ number, color, size }) => {
     switch (true) {
         case number < 1:
-            return <><FontAwesome name="star-half-full" size={size} color={color} />;
+            return <><FontAwesome name="star-half-full" size={size} color={color} />
                 <FontAwesome name="star-o" size={size} color={color} />
                 <FontAwesome name="star-o" size={size} color={color} />
                 <FontAwesome name="star-o" size={size} color={color} />
